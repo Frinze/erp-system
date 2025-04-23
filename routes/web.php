@@ -4,7 +4,9 @@ use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HR\PayrollController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HR\NotificationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\HR\EmploymentRecordController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -52,6 +54,8 @@ Route::middleware(['auth', 'can:is-hr'])->prefix('hr')->name('hr.')->group(funct
     Route::get('/payroll/create', [PayrollController::class, 'create'])->name('payroll.create');
     Route::resource('payroll', PayrollController::class);
     Route::post('payroll', [PayrollController::class, 'store'])->name('payroll.store');
+    Route::get('/hr/notifications', [NotificationController::class, 'index'])->name('hr.notifications');
+    Route::post('/hr/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('hr.notifications.read');
 });
 
 

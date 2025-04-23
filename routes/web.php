@@ -10,6 +10,7 @@ use App\Http\Controllers\HR\EmploymentRecordController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Accounting\AccountingController;
 use App\Http\Controllers\HR\PayrollController;
+use App\Http\Controllers\Admin\UserManagementController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -81,5 +82,15 @@ Route::get('/reporting/dashboard', fn() => view('reporting.dashboard'))
 Route::get('/crm/dashboard', fn() => view('crm.dashboard'))
     ->middleware(['auth', 'can:is'])
     ->name('crm.dashboard');
+
+// in routes/web.php
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', UserManagementController::class)->except(['show', 'create', 'store']);
+});
+
+
 
 require __DIR__ . '/auth.php';

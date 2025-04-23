@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('remarks')->nullable();
             $table->timestamps();
 
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('employee_name')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 
